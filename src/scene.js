@@ -3,14 +3,13 @@ import { createCamera } from "./camera.js";
 import { createCorporation } from "./corporation.js";
 import { createAssetInstance } from "./assets.js";
 
-export function createScene() {
-  const SIZE = 16;
+export function createScene(size) {
   const gameWindow = document.getElementById("render-target");
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x000066);
 
-  const camera = createCamera(gameWindow, SIZE);
+  const camera = createCamera(gameWindow, size);
 
   const renderer = new THREE.WebGLRenderer();
   renderer.setSize(gameWindow.clientWidth, gameWindow.clientHeight);
@@ -25,16 +24,14 @@ export function createScene() {
 
   let onObjectSelected = undefined;
 
-  const corp = createCorporation(SIZE);
-
-  function initialize() {
+  function initialize(corp) {
     scene.clear();
     terrain = [];
     meshes = [];
 
-    for (let x = 0; x < corp.size; x++) {
+    for (let x = 0; x < size; x++) {
       let column = [];
-      for (let y = 0; y < corp.size; y++) {
+      for (let y = 0; y < size; y++) {
         const terrainId = corp.data[x][y].terrainId;
         const mesh = createAssetInstance(terrainId, x, y);
         scene.add(mesh);
@@ -45,9 +42,11 @@ export function createScene() {
         if (tile.space === "office") {
           const mesh = createAssetInstance("office", x, y);
           scene.add(mesh);
-
-          column.push(mesh);
+        } else if (tile.space === "restroom") {
+          const mesh = createAssetInstance("restroom", x, y);
+          scene.add(mesh);
         }
+        column.push(mesh);
       }
 
       meshes.push(column);
@@ -120,7 +119,7 @@ export function createScene() {
     onKeyDown,
     onKeyUp,
     initialize,
-    corp,
+
     update,
   };
 }

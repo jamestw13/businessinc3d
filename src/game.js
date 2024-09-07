@@ -2,16 +2,17 @@ import { createScene } from "./scene.js";
 import { createCorporation } from "./corporation.js";
 
 export function createGame() {
+  const SIZE = 16;
   let tick = 0;
   let time = 0;
   let activeTool = "";
 
   let gameSpeed = 5;
-  const scene = createScene(100);
+  const scene = createScene(SIZE);
 
-  const corp = createCorporation(100);
+  const corp = createCorporation(SIZE);
 
-  scene.initialize();
+  scene.initialize(corp);
 
   scene.onObjectSelected = (selectedObject) => {
     let { x, y } = selectedObject.userData;

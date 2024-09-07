@@ -19,11 +19,9 @@ export function createCorporation(size) {
             }
           },
         };
-        if (Math.random() > 0.9) {
-          console.log(tile.space);
+        if (Math.random() > 0.8) {
           tile.space = "office";
-          console.log(tile.space);
-        } else if (Math.random() < 0.3) {
+        } else if (Math.random() < 0.1) {
           tile.space = "restroom";
         }
 
