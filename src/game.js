@@ -11,14 +11,23 @@ export function createGame() {
   const corp = createCorporation(100);
 
   scene.initialize();
-  console.log(scene.lights);
 
-  document.addEventListener("keydown", scene.onKeyDown);
-  document.addEventListener("keyup", scene.onKeyUp);
-  document.addEventListener("mousedown", scene.onMouseDown);
-  document.addEventListener("mouseup", scene.onMouseUp);
-  document.addEventListener("mousemove", scene.onMouseMove, { passive: false });
-  document.addEventListener("wheel", scene.onMouseWheel, { passive: false });
+  scene.onObjectSelected = (selectedObject) => {
+    let { x, y } = selectedObject.userData;
+    const tile = corp.data[x][y];
+    console.log(tile);
+  };
+
+  document.addEventListener("keydown", scene.onKeyDown.bind(scene));
+  document.addEventListener("keyup", scene.onKeyUp.bind(scene));
+  document.addEventListener("mousedown", scene.onMouseDown.bind(scene));
+  document.addEventListener("mouseup", scene.onMouseUp.bind(scene));
+  document.addEventListener("mousemove", scene.onMouseMove.bind(scene), {
+    passive: false,
+  });
+  document.addEventListener("wheel", scene.onMouseWheel.bind(scene), {
+    passive: false,
+  });
   document.addEventListener("contextmenu", (event) => {
     event.preventDefault();
   });
