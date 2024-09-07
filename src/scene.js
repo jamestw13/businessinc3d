@@ -1,11 +1,11 @@
-import * as THREE from 'three';
-import { createCamera } from './camera.js';
-import { createCorporation } from './corporation.js';
-import { createAssetInstance } from './assets.js';
+import * as THREE from "three";
+import { createCamera } from "./camera.js";
+import { createCorporation } from "./corporation.js";
+import { createAssetInstance } from "./assets.js";
 
 export function createScene() {
   const SIZE = 16;
-  const gameWindow = document.getElementById('render-target');
+  const gameWindow = document.getElementById("render-target");
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x000066);
@@ -17,24 +17,27 @@ export function createScene() {
   gameWindow.appendChild(renderer.domElement);
 
   let meshes = [];
+  let terrain = [];
 
   const corp = createCorporation(SIZE);
 
   function initialize() {
     scene.clear();
+    terrain = [];
     meshes = [];
 
     for (let x = 0; x < corp.size; x++) {
       let column = [];
       for (let y = 0; y < corp.size; y++) {
-        const mesh = createAssetInstance('ground', x, y);
+        const terrainId = corp.data[x][y].terrainId;
+        const mesh = createAssetInstance(terrainId, x, y);
         scene.add(mesh);
 
         column.push(mesh);
         // Office Geometry
         const tile = corp.data[x][y];
-        if (tile.space === 'office') {
-          const mesh = createAssetInstance('office', x, y);
+        if (tile.space === "office") {
+          const mesh = createAssetInstance("office", x, y);
           scene.add(mesh);
 
           column.push(mesh);
@@ -43,7 +46,6 @@ export function createScene() {
 
       meshes.push(column);
     }
-
     setupLights();
   }
 
@@ -54,9 +56,10 @@ export function createScene() {
       new THREE.DirectionalLight(0xffffff, 0.3),
       new THREE.DirectionalLight(0xffffff, 0.3),
     ];
-
     scene.add(...lights);
   }
+
+  function update() {}
 
   function draw() {
     renderer.render(scene, camera.camera);
@@ -83,5 +86,16 @@ export function createScene() {
   function onMouseWheel(event) {
     camera.onMouseWheel(event);
   }
-  return { draw, onMouseDown, onMouseUp, onMouseMove, onMouseWheel, onKeyDown, onKeyUp, initialize, corp };
+  return {
+    draw,
+    onMouseDown,
+    onMouseUp,
+    onMouseMove,
+    onMouseWheel,
+    onKeyDown,
+    onKeyUp,
+    initialize,
+    corp,
+    update,
+  };
 }

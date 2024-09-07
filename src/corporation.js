@@ -1,6 +1,6 @@
 export function createCorporation(size) {
-  const data = [];
   let money = 10000;
+  const data = [];
 
   initialize();
 
@@ -11,16 +11,16 @@ export function createCorporation(size) {
         const tile = {
           x,
           y,
+          terrainId: "ground",
           space: undefined,
           update() {
-            if (this.space === 'office') {
+            if (this.space === "office") {
               money += 1;
             }
           },
         };
-
         if (Math.random() > 0.9) {
-          tile.space = 'office';
+          tile.space = "office";
         }
 
         column.push(tile);
@@ -35,8 +35,12 @@ export function createCorporation(size) {
         data[x][y].update();
       }
     }
-    document.getElementById('money').innerHTML = `$${money}`;
+    document.getElementById("money").innerHTML = `$${money}`;
   }
 
   return { size, data, update };
+
+  function createTile(x, y) {
+    return;
+  }
 }

@@ -1,5 +1,5 @@
-import { createScene } from './scene.js';
-import { createCorporation } from './corporation.js';
+import { createScene } from "./scene.js";
+import { createCorporation } from "./corporation.js";
 
 export function createGame() {
   let tick = 0;
@@ -11,14 +11,15 @@ export function createGame() {
   const corp = createCorporation(100);
 
   scene.initialize();
+  console.log(scene.lights);
 
-  document.addEventListener('keydown', scene.onKeyDown);
-  document.addEventListener('keyup', scene.onKeyUp);
-  document.addEventListener('mousedown', scene.onMouseDown);
-  document.addEventListener('mouseup', scene.onMouseUp);
-  document.addEventListener('mousemove', scene.onMouseMove, { passive: false });
-  document.addEventListener('wheel', scene.onMouseWheel, { passive: false });
-  document.addEventListener('contextmenu', event => {
+  document.addEventListener("keydown", scene.onKeyDown);
+  document.addEventListener("keyup", scene.onKeyUp);
+  document.addEventListener("mousedown", scene.onMouseDown);
+  document.addEventListener("mouseup", scene.onMouseUp);
+  document.addEventListener("mousemove", scene.onMouseMove, { passive: false });
+  document.addEventListener("wheel", scene.onMouseWheel, { passive: false });
+  document.addEventListener("contextmenu", (event) => {
     event.preventDefault();
   });
 
@@ -29,7 +30,8 @@ export function createGame() {
       corp.update();
 
       time++;
-      document.getElementById('time').innerHTML = `${formatTime(time)}`;
+      document.getElementById("time").innerHTML = `${formatTime(time)}`;
+      // scene.update(time);
     }
 
     scene.draw();
@@ -49,7 +51,9 @@ export function createGame() {
     if (seconds % (60 * 24) === 0) {
       setGameSpeed(0);
     }
-    return `Day ${day} - ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    return `Day ${day} - ${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}`;
   }
 
   gameLoop();
