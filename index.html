@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./public/index.css" />
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three/build/three.module.js"
+        }
+      }
+    </script>
+    <title>Corporation Inc. 3D</title>
+  </head>
+  <body>
+    <div id="root-window">
+      <div id="render-target">
+        <div id="ui-toolbar">
+          <button onclick="window.game.setGameSpeed(0)">0</button>
+          <button onclick="window.game.setGameSpeed(5 )">1</button>
+          <button onclick="window.game.setGameSpeed(3)">2</button>
+          <button onclick="window.game.setGameSpeed(1)">3</button>
+
+          <div id="time"></div>
+
+          <div id="money"></div>
+          <button id="button-select selected" class="ui-button selected" onclick="setActiveTool(event, 'select')">
+            SELECT
+          </button>
+          <button id="button-select" class="ui-button selected" onclick="setActiveTool(event, 'build-office')">
+            BUILD OFFICE
+          </button>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      import { createGame } from './src/game.js';
+
+      window.onload = () => {
+        window.game = createGame();
+      };
+    </script>
+  </body>
+</html>
