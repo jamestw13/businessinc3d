@@ -4,6 +4,7 @@ import { createCorporation } from "./corporation.js";
 export function createGame() {
   let tick = 0;
   let time = 0;
+  let activeTool = "";
 
   let gameSpeed = 5;
   const scene = createScene(100);
@@ -52,6 +53,15 @@ export function createGame() {
     gameSpeed = speed;
   }
 
+  function setActiveToolId(toolId) {
+    activeTool = toolId;
+    if (activeTool === "remove") {
+    } else if (activeTool === "office") {
+    } else if (activeTool === "restroom") {
+    } else if (activeTool === "select") {
+    }
+  }
+
   function formatTime(time) {
     const seconds = Math.floor(time / 2);
     const minutes = seconds % 60;
@@ -70,5 +80,6 @@ export function createGame() {
   return {
     setGameSpeed,
     tick,
+    setActiveToolId,
   };
 }

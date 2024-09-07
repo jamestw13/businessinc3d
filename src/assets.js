@@ -4,7 +4,7 @@ const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 
 const assets = {
   office: (x, y) => {
-    const material = new THREE.MeshLambertMaterial({ color: 0x7777777 });
+    const material = new THREE.MeshLambertMaterial({ color: 0x007777 });
 
     const mesh = new THREE.Mesh(boxGeometry, material);
     mesh.userData = { id: "office", x, y };
@@ -12,10 +12,10 @@ const assets = {
     mesh.position.set(x, 0.5, y);
     return mesh;
   },
-  bathroom: (x, y) => {
-    const material = new THREE.MeshLambertMaterial({ color: 0x7777777 });
+  restroom: (x, y) => {
+    const material = new THREE.MeshLambertMaterial({ color: 0x555500 });
     const mesh = new THREE.Mesh(boxGeometry, material);
-    mesh.userData = { id: "bathroom", x, y };
+    mesh.userData = { id: "restroom", x, y };
     mesh.scale.set(1, 1, 2);
     mesh.position.set(x, 0.5, y);
     return mesh;

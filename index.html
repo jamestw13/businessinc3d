@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="./public/index.css" />
-    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script
+      async
+      src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"
+    ></script>
     <script type="importmap">
       {
         "imports": {
@@ -25,20 +28,54 @@
           <div id="time"></div>
 
           <div id="money"></div>
-          <button id="button-select selected" class="ui-button selected" onclick="setActiveTool(event, 'select')">
+          <button
+            id="button-select "
+            class="ui-button selected"
+            onclick="setActiveToolId(event, 'select')"
+          >
             SELECT
           </button>
-          <button id="button-select" class="ui-button selected" onclick="setActiveTool(event, 'build-office')">
-            BUILD OFFICE
+          <button
+            id="button-office"
+            class="ui-button"
+            onclick="setActiveToolId(event, 'office')"
+          >
+            OFFICE
+          </button>
+          <button
+            id="button-restroom"
+            class="ui-button"
+            onclick="setActiveToolId(event, 'restroom')"
+          >
+            RESTROOM
+          </button>
+          <button
+            id="button-remove"
+            class="ui-button"
+            onclick="setActiveToolId(event, 'remove')"
+          >
+            REMOVE
           </button>
         </div>
       </div>
     </div>
     <script type="module">
-      import { createGame } from './src/game.js';
+      import { createGame } from "./src/game.js";
+
+      let selectedControl = document.getElementById("select");
 
       window.onload = () => {
         window.game = createGame();
+      };
+
+      window.setActiveToolId = (event, toolId) => {
+        if (selectedControl) {
+          selectedControl.classList.remove("selected");
+        }
+        selectedControl = event.target;
+        selectedControl.classList.add("selected");
+
+        window.game.setActiveToolId(toolId);
       };
     </script>
   </body>
