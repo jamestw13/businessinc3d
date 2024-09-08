@@ -29,7 +29,7 @@
 
           <div id="money"></div>
           <button
-            id="button-select "
+            id="button-select"
             class="ui-button selected"
             onclick="setActiveToolId(event, 'select')"
           >
@@ -62,7 +62,7 @@
     <script type="module">
       import { createGame } from "./src/game.js";
 
-      let selectedControl = document.getElementById("select");
+      let selectedControl = document.getElementById("button-select");
 
       window.onload = () => {
         window.game = createGame();

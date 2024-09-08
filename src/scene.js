@@ -19,7 +19,7 @@ export function createScene(size) {
   const mouse = new THREE.Vector2();
   let selectedObject = undefined;
 
-  let meshes = [];
+  let spaces = [];
   let terrain = [];
 
   let onObjectSelected = undefined;
@@ -27,7 +27,7 @@ export function createScene(size) {
   function initialize(corp) {
     scene.clear();
     terrain = [];
-    meshes = [];
+    spaces = [];
 
     for (let x = 0; x < size; x++) {
       let column = [];
@@ -49,7 +49,7 @@ export function createScene(size) {
         column.push(mesh);
       }
 
-      meshes.push(column);
+      spaces.push(column);
     }
     setupLights();
   }
@@ -64,7 +64,25 @@ export function createScene(size) {
     scene.add(...lights);
   }
 
-  function update() {}
+  function update(corp) {
+    for (let x = 0; x < size; x++) {
+      for (let y = 0; y < size; y++) {
+        const currentSpaceType = spaces[x][y]?.userId;
+        console.log(currentSpaceType);
+        const newSpaceType = corp.data[x][y].space;
+
+        if (!newSpaceType && currentSpaceType) {
+          scene.remove(spaces[x][y]);
+          spaces[x][y] = undefined;
+        }
+        if (newSpaceType && newSpaceType !== currentSpaceType) {
+          scene.remove(spaces[x][y]);
+          spaces[x][y] = createAssetInstance(newSpaceType, x, y);
+          scene.add(spaces[x][y]);
+        }
+      }
+    }
+  }
 
   function draw() {
     renderer.render(scene, camera.camera);
@@ -92,7 +110,6 @@ export function createScene(size) {
       if (selectedObject) selectedObject.material.emissive.setHex(0x000000);
       selectedObject = intersections[0].object;
       selectedObject.material.emissive.setHex(0x555555);
-      console.log(selectedObject.userData);
 
       if (this.onObjectSelected) {
         this.onObjectSelected(selectedObject);

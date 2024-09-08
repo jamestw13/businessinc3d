@@ -5,7 +5,7 @@ export function createGame() {
   const SIZE = 16;
   let tick = 0;
   let time = 0;
-  let activeTool = "";
+  let activeToolId = "select";
 
   let gameSpeed = 5;
   const scene = createScene(SIZE);
@@ -17,7 +17,28 @@ export function createGame() {
   scene.onObjectSelected = (selectedObject) => {
     let { x, y } = selectedObject.userData;
     const tile = corp.data[x][y];
-    console.log(tile);
+
+    switch (activeToolId) {
+      case "select":
+        console.log(tile);
+        break;
+      case "remove":
+        tile.space = undefined;
+        scene.update(corp);
+        break;
+      case "office":
+        tile.space = "office";
+        scene.update(corp);
+        break;
+      case "restroom":
+        tile.space = "restroom";
+        scene.update(corp);
+        break;
+    }
+
+    if (activeToolId === "remove") {
+    } else if (activeToolId === "office" || activeToolId === "restroom") {
+    }
   };
 
   document.addEventListener("keydown", scene.onKeyDown.bind(scene));
@@ -55,11 +76,11 @@ export function createGame() {
   }
 
   function setActiveToolId(toolId) {
-    activeTool = toolId;
-    if (activeTool === "remove") {
-    } else if (activeTool === "office") {
-    } else if (activeTool === "restroom") {
-    } else if (activeTool === "select") {
+    activeToolId = toolId;
+    if (activeToolId === "remove") {
+    } else if (activeToolId === "office") {
+    } else if (activeToolId === "restroom") {
+    } else if (activeToolId === "select") {
     }
   }
 

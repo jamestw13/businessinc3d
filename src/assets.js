@@ -5,10 +5,9 @@ const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 const assets = {
   office: (x, y) => {
     const material = new THREE.MeshLambertMaterial({ color: 0x007777 });
-
     const mesh = new THREE.Mesh(boxGeometry, material);
     mesh.userData = { id: "office", x, y };
-    mesh.scale.set(1, 1, 1);
+    mesh.scale.set(3, 1, 3);
     mesh.position.set(x, 0.5, y);
     return mesh;
   },
@@ -16,7 +15,7 @@ const assets = {
     const material = new THREE.MeshLambertMaterial({ color: 0x555500 });
     const mesh = new THREE.Mesh(boxGeometry, material);
     mesh.userData = { id: "restroom", x, y };
-    mesh.scale.set(1, 1, 1);
+    mesh.scale.set(2, 1, 1);
     mesh.position.set(x, 0.5, y);
     return mesh;
   },
