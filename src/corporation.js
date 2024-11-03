@@ -1,13 +1,14 @@
-export function createCorporation(size) {
-  let money = 10000;
-  const data = [];
-
-  initialize();
-
-  function initialize() {
-    for (let x = 0; x < size; x++) {
+export default class Corporation {
+  constructor(size) {
+    this.size = size;
+    this.money = 10000;
+    this.data = [];
+    this.initialize();
+  }
+  initialize() {
+    for (let x = 0; x < this.size; x++) {
       const column = [];
-      for (let y = 0; y < size; y++) {
+      for (let y = 0; y < this.size; y++) {
         let tile = {
           x,
           y,
@@ -15,34 +16,33 @@ export function createCorporation(size) {
           space: undefined,
           update() {
             if (this.space === "office") {
-              money += 1;
+              this.money += 1;
             }
           },
         };
-        if (Math.random() > 0.8) {
+        const random = Math.random();
+        if (random > 0.9) {
           tile.space = "office";
-        } else if (Math.random() < 0.1) {
+        } else if (random < 0.05) {
           tile.space = "restroom";
         }
 
         column.push(tile);
       }
-      data.push(column);
+      this.data.push(column);
     }
   }
 
-  function update() {
-    for (let x = 0; x < size; x++) {
-      for (let y = 0; y < size; y++) {
-        data[x][y].update();
+  update() {
+    for (let x = 0; x < this.size; x++) {
+      for (let y = 0; y < this.size; y++) {
+        this.data[x][y].update();
       }
     }
-    document.getElementById("money").innerHTML = `$${money}`;
+    document.getElementById("money").innerHTML = `$${this.money}`;
   }
 
-  return { size, data, update };
-
-  function createTile(x, y) {
+  createTile(x, y) {
     return;
   }
 }

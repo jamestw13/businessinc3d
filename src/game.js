@@ -1,8 +1,8 @@
 import { createScene } from "./scene.js";
-import { createCorporation } from "./corporation.js";
+import Corporation from "./corporation.js";
 
 export function createGame() {
-  const SIZE = 16;
+  const SIZE = 32;
   let tick = 0;
   let time = 0;
   let activeToolId = "select";
@@ -10,7 +10,7 @@ export function createGame() {
   let gameSpeed = 5;
   const scene = createScene(SIZE);
 
-  const corp = createCorporation(SIZE);
+  const corp = new Corporation(SIZE);
 
   scene.initialize(corp);
 

@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { createCamera } from "./camera.js";
-import { createCorporation } from "./corporation.js";
 import { createAssetInstance } from "./assets.js";
 
 export function createScene(size) {
